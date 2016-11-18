@@ -1,0 +1,54 @@
+<div class="intro-message">
+     <form name="itemForm" role="form" ng-submit="additem()" novalidate>
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Add Item</legend>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="name">Item Name</label>  
+              <div class="col-md-5">
+              <input ng-model="item_data[0].item['name']" id="name" name="name[]" type="text" placeholder="Item name" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="amount">Amount</label>  
+              <div class="col-md-5">
+              <input ng-model="item_data[0].item['amount']" id="amount" name="amount[]" type="text" placeholder="Amount" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            
+             <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="name">Item Name</label>  
+              <div class="col-md-5">
+              <input ng-model="item_data[1].item['name']" id="name" name="name[]" type="text" placeholder="Item name" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="amount">Amount</label>  
+              <div class="col-md-5">
+              <input ng-model="item_data[1].item['amount']" id="amount" name="amount[]" type="text" placeholder="Amount" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            
+            
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="button"></label>
+              <div class="col-md-4">
+                <a ng-click="additem()" class="btn btn-primary btn-lg">Add Item <i class="fa fa-sign-in"></i></a>
+              </div>
+            </div>
+            </fieldset>
+     </form>
+</div>

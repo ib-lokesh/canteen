@@ -1,7 +1,10 @@
 <div class="intro-message">
-  <ul class="list-group">
-    <li class="list-group-item">First item</li>
-    <li class="list-group-item">Second item</li>
-    <li class="list-group-item">Third item</li>
+  <ul class="list-group menu-item">
+    <li class="list-group-item" ng-repeat="it in items">
+      <div class="pull-left">{{it.name}}</div>
+      <div class="pull-right">{{it.price}}</div>
+      <div class="clearfix"></div>
+    </li>
+    
   </ul>                       
 </div>
