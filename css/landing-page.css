@@ -35,7 +35,7 @@ h6 {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/menu.jpg) no-repeat center center;
+    background: url(../img/menu.jpg1) no-repeat center center;
     background-size: cover;
 }
 
@@ -174,4 +174,8 @@ p.copyright {
 }
 .navbar-default .navbar-nav>li>a{
     color: #fff;
+}
+.menu-item li {
+    color: #000;
+    text-align: left;
 }
