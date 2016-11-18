@@ -1,8 +1,8 @@
 angular.module('constants', []).constant(
         'config',
             {
-                site_url:'http://172.16.2.115/canteen/',
-                service_url:'http://172.16.2.115/canteen/canteen/service.php'
+                site_url:'http://172.16.7.112/canteen/',
+                service_url:'http://172.16.7.112/canteen/canteen/service.php'
             }
         );
     
@@ -89,12 +89,12 @@ app.controller('login', function($scope, config,$cookies,$location,commonService
 });
 
 app.controller("additem", function ($scope, config,$cookies,$location,commonService) {
-      $scope.item_data = {};
-            $scope.additem = function() { 
+      //$scope.item_data = {};
+            $scope.insertData = function() { 
             var request_header = {
                 url: config.service_url + '?action=additem',
                 method: 'POST',
-                data:$scope.item_data
+                data:$scope.personalDetails
             };
             commonService.getData(request_header).then(function(response) {
                 
@@ -107,6 +107,45 @@ app.controller("additem", function ($scope, config,$cookies,$location,commonServ
                 //console.log($scope.data);
             });
         };   
+        
+        var request_header = {
+                url: config.service_url + '?action=getitems',
+                method: 'POST',
+                data:$scope.item_data
+            };
+        commonService.getData(request_header).then(function(response) {                
+            if(response.status == 1){
+                $scope.items = '';
+               $scope.personalDetails = response['items'];
+
+
+            }else{
+                $scope.is_authenticate  = response.message;
+            }
+            //$scope.data = response;
+            //console.log($scope.data);
+        }); 
+
+     
+
+        $scope.addNew = function(personalDetail){
+            // alert("hii addNew"); 
+            $scope.personalDetails.push({ 
+                'fname': "", 
+                'lname': "",
+            });
+        };
+
+        $scope.remove = function(){
+            var newDataList=[];
+            $scope.selectedAll = false;
+            angular.forEach($scope.personalDetails, function(selected){
+                if(!selected.selected){
+                    newDataList.push(selected);
+                }
+            }); 
+            $scope.personalDetails = newDataList;
+        };
 });
 
 app.controller("menu", function ($scope, config,$cookies,$location,commonService) {             

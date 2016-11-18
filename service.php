@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "infoserver123";
-$dbname = "c_demo";
+$dbname = "ib_canteen_snacks";
 
 // Create connection
 $conn = mysql_connect($servername, $username, $password);
@@ -48,8 +48,8 @@ if(!empty($action)){
             $items = array();
             $i =0;
             while($row = mysql_fetch_array($result)){
-                $items[$i]['name'] = $row['item_name'];
-                $items[$i]['price'] = $row['price'];
+                $items[$i]['fname'] = $row['item_name'];
+                $items[$i]['lname'] = $row['price'];
                 $i++;
             }
             $response['status'] = 1;
@@ -57,14 +57,16 @@ if(!empty($action)){
             break;
         case 'additem':
             if(!empty($request)){
-                //$request = (array) $request;
-               // print_r($request);die;
+
+            	mysql_query('TRUNCATE TABLE items');
+
                $sql = 'Insert into items (item_name,price,date) values ';
                $current_date = date('Y-m-d');
                $data = '';
                 foreach($request as $r){
-                    $name = isset($r->item->name)?$r->item->name:'';
-                    $amount = isset($r->item->amount)?$r->item->amount:'';
+                    
+                    $name = isset($r->fname)?$r->fname:'';
+                    $amount = isset($r->lname)?$r->lname:'';
                     if(!empty($name) && !empty($amount)){
                         $data .= '("'.mysql_real_escape_string($name).'","'.mysql_real_escape_string($amount).'","'.$current_date.'"),';
                     }
