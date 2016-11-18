@@ -6,14 +6,14 @@ angular.module('constants', []).constant(
             }
         );
     
-var app = angular.module('canteenapp', ['ngRoute','constants','ngCookies']);
+var app = angular.module('canteenapp', ['ngRoute','constants','ngCookies','ui.bootstrap']);
 app.config(function ($routeProvider) {
     $routeProvider
 
             // route for the home page
             .when('/', {
-                templateUrl:  'template/home.html',
-                controller: 'home'
+                templateUrl:  'template/menu.html',
+                controller: 'menu'
             })
              .when('/login', {
                 templateUrl:  'template/login.html',
@@ -49,6 +49,18 @@ app.config(function ($routeProvider) {
                 deferred.reject();
             });
             return deferred.promise;
+        };
+        
+        this.getMenu = function($cookies){
+            var dropdown_menu = [];
+            dropdown_menu.push({'menu':{'href':'menu','label':'Menu'}});
+            if($cookies.get('user_data')){
+                dropdown_menu.push({'menu':{'href':'logout','label':'Logout'}});
+                
+            }else{
+                dropdown_menu.push({'menu':{'href':'login','label':'Login'}});           
+            }
+            return dropdown_menu;
         };
         
     });
@@ -90,6 +102,11 @@ app.controller('login', function($scope, config,$cookies,$location,commonService
 
 app.controller("additem", function ($scope, config,$cookies,$location,commonService) {
       //$scope.item_data = {};
+      if(!$cookies.get('user_data')){
+        $location.path('/');
+      }      
+    // $scope.dropdown_menu =  commonService.getMenu($cookies);
+    // console.log($scope.dropdown_menu[0].menu.href);
             $scope.insertData = function() { 
             var request_header = {
                 url: config.service_url + '?action=additem',

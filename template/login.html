@@ -6,16 +6,17 @@
 				</div>
     <div>{{is_authenticate}}</div>
         <form name="loginForm" role="form" ng-submit="doLogin()" novalidate>      
-            <div class="col-md-offset-5 col-md-3">
+            <div>
             <div class="form-login">
-            <h3>Login</h3>
+            <!--<h3>Login</h3>-->
             <input ng-model="login_data.username" type="text" id="userName" class="form-control input-lg chat-input" placeholder="username" />
             </br>
             <input ng-model="login_data.password" type="password" id="userPassword" class="form-control input-lg chat-input" placeholder="password" />
             </br>
             <div class="wrapper">
-            <span class="group-btn">     
-                <a ng-click="doLogin()" class="btn btn-primary btn-lg">login <i class="fa fa-sign-in"></i></a>
+            <span class="group-btn">
+				<a ng-click="doLogin()" class="btn btn-block btn-lg btn-primary" href="#">Login</a>
+
             </span>
             </div>
             </div>
