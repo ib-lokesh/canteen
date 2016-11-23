@@ -228,4 +228,11 @@ p.copyright {
     
 }
 .dropdown-menu li a{
-    color: #fff;
+    color: #fff;}
+.btn-red{
+    background-color: #EA1B3D;
+    color: #fff;    
+}
+.intro-message h3{
+    text-align: center;
+}
