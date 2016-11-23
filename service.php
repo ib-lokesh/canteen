@@ -16,6 +16,8 @@ $response = array();
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $action = isset($_REQUEST['action']) && !empty($_REQUEST['action']) ? $_REQUEST['action']:'';
+$add = isset($_REQUEST['add']) && !empty($_REQUEST['add']) ? $_REQUEST['add']:'';
+
 
 if(!empty($action)){
     switch($action)
@@ -44,13 +46,19 @@ if(!empty($action)){
             break;
         case 'getitems':
             $current_date = date('Y-m-d');
-            $sql = "select * from items where `date` = '".$current_date."' ";
+            if($add!=1){
+  	          $sql = "select * from items where `is_checked`='1' ";
+            }else{
+               $sql = "select * from items ";
+ 	        }
             $result =  mysql_query($sql);
             $items = array();
             $i =0;
             while($row = mysql_fetch_array($result)){
                 $items[$i]['fname'] = $row['item_name'];
                 $items[$i]['lname'] = $row['price'];
+                $items[$i]['selected'] = $row['is_checked'];
+
                 $i++;
             }
             $response['status'] = 1;
@@ -58,18 +66,20 @@ if(!empty($action)){
             break;
         case 'additem':
             if(!empty($request)){
-
+            	//print_r($request);die;
             	mysql_query('TRUNCATE TABLE items');
 
-               $sql = 'Insert into items (item_name,price,date) values ';
+               $sql = 'Insert into items (item_name,price,is_checked,date) values ';
                $current_date = date('Y-m-d');
                $data = '';
                 foreach($request as $r){
                     
                     $name = isset($r->fname)?$r->fname:'';
                     $amount = isset($r->lname)?$r->lname:'';
+                    $selected = isset($r->selected)?$r->selected:'';
+
                     if(!empty($name) && !empty($amount)){
-                        $data .= '("'.mysql_real_escape_string($name).'","'.mysql_real_escape_string($amount).'","'.$current_date.'"),';
+                        $data .= '("'.mysql_real_escape_string($name).'","'.mysql_real_escape_string($amount).'","'.$selected.'" , "'.$current_date.'"),';
                     }
                 }
             }

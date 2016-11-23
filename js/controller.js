@@ -31,6 +31,7 @@ app.config(function ($routeProvider) {
 
 
  app.service('commonService', function($http, $q) {
+      
         var request_wrapper = {    
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -60,6 +61,8 @@ app.config(function ($routeProvider) {
             }else{
                 dropdown_menu.push({'menu':{'href':'login','label':'Login'}});           
             }
+            console.log(dropdown_menu);
+          
             return dropdown_menu;
         };
         
@@ -69,7 +72,7 @@ app.config(function ($routeProvider) {
 app.controller("home", ['$scope', function ($scope) {                
                
 }]);
-app.controller('login', function($scope, config,$cookies,$location,commonService) {
+app.controller('login', function($scope, config,$cookies,$cookieStore,$location,commonService) {
                $scope.login_data = {
                     username: 'admin',
                     password: 'admin'
@@ -87,8 +90,12 @@ app.controller('login', function($scope, config,$cookies,$location,commonService
                 if(response.status == 1){
                      //alert(response.status);
                      //console.log($scope.login_data);
-                      $cookies.put('user_data', {email:$scope.login_data.email});
-                      //console.log($cookies.get('user_data'));
+                     //alert($scope.login_data.username);
+
+                    $cookies.put('user_data', {username:$scope.login_data.username});
+                    //  var obj = {username:$scope.login_data.username};
+                    //  $scope.usingCookieStore = { "cookieStore.get" : $cookieStore.get('user_data'), 'cookies.dotobject' : $cookies.obj };
+                    //  console.log($scope.usingCookieStore);
                     $scope.is_authenticate  = response.message;
                     $location.path('/additem');
                 }else{
@@ -105,9 +112,10 @@ app.controller("additem", function ($scope, config,$cookies,$location,commonServ
       if(!$cookies.get('user_data')){
         $location.path('/');
       }      
-    // $scope.dropdown_menu =  commonService.getMenu($cookies);
-    // console.log($scope.dropdown_menu[0].menu.href);
-            $scope.insertData = function() { 
+      $scope.dropdown_menu =  commonService.getMenu($cookies);
+
+        $scope.insertData = function() { 
+            //console.log($scope.personalDetails);
             var request_header = {
                 url: config.service_url + '?action=additem',
                 method: 'POST',
@@ -120,21 +128,26 @@ app.controller("additem", function ($scope, config,$cookies,$location,commonServ
                 }else{
                     $scope.is_authenticate  = response.message;
                 }
-                //$scope.data = response;
-                //console.log($scope.data);
             });
         };   
         
         var request_header = {
-                url: config.service_url + '?action=getitems',
+                url: config.service_url + '?action=getitems&add=1',
                 method: 'POST',
                 data:$scope.item_data
             };
         commonService.getData(request_header).then(function(response) {                
             if(response.status == 1){
                 $scope.items = '';
-               $scope.personalDetails = response['items'];
+                $scope.personalDetails = response['items'];
 
+                angular.forEach($scope.personalDetails, function(value, key) {
+                    angular.forEach(value, function(value1, key1) {
+                        if(key1=='selected' && value1=='1'){
+                            $scope.personalDetails[key].selected=true;
+                        }
+                    });
+                });
 
             }else{
                 $scope.is_authenticate  = response.message;
@@ -150,6 +163,7 @@ app.controller("additem", function ($scope, config,$cookies,$location,commonServ
             $scope.personalDetails.push({ 
                 'fname': "", 
                 'lname': "",
+                'selected':"",
             });
         };
 
