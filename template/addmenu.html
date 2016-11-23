@@ -68,11 +68,12 @@
                                 <tbody>
                                     <tr ng-repeat="personalDetail in personalDetails">
                                         <td>
-                                            <input type="checkbox" ng-model="personalDetail.selected" /></td>
+                                            <input type="checkbox" ng-model="personalDetail.selected" />
+                                            <a class="btn" aria-label="Close Account Info Modal Box" ng-click="remove(personalDetail)">&times;</a></td>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="personalDetail.fname" required/></td>
+                                            <input type="text" class="form-control" ng-model="personalDetail.item_name" required/></td>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="personalDetail.lname" required/></td>
+                                            <input type="text" class="form-control" ng-model="personalDetail.price" required/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -80,7 +81,7 @@
                              
                                 <input type="submit" class="btn btn-primary addnew pull-center" value="Add New">
                                 <input type="button" class="btn btn-primary addnew pull-center" value="Submit" ng-click="insertData()" />
-                                   <input ng-hide="!personalDetails.length" type="button" class="btn btn-danger pull-center" ng-click="remove()" value="Remove">
+                                   <!-- <input ng-hide="!personalDetails.length" type="button" class="btn btn-danger pull-center" ng-click="remove()" value="Remove"> -->
                             </div>
                         </form>
                     </div>

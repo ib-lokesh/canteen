@@ -149,21 +149,24 @@ app.controller("additem", function ($scope,$rootScope, config,$cookies,$location
         $scope.addNew = function(personalDetail){
             // alert("hii addNew"); 
             $scope.personalDetails.push({ 
-                'fname': "", 
-                'lname': "",
+                'item_name': "", 
+                'price': "",
                 'selected':"",
             });
         };
 
-        $scope.remove = function(){
+        $scope.remove = function(item){
             var newDataList=[];
             $scope.selectedAll = false;
-            angular.forEach($scope.personalDetails, function(selected){
+            var index = $scope.personalDetails.indexOf(item);
+            $scope.personalDetails.splice(index, 1); 
+
+            /*angular.forEach($scope.personalDetails, function(selected){
                 if(!selected.selected){
                     newDataList.push(selected);
                 }
-            }); 
-            $scope.personalDetails = newDataList;
+            });*/ 
+            //$scope.personalDetails = newDataList;
         };
 });
 

@@ -55,8 +55,8 @@ if(!empty($action)){
             $items = array();
             $i =0;
             while($row = mysql_fetch_array($result)){
-                $items[$i]['fname'] = $row['item_name'];
-                $items[$i]['lname'] = $row['price'];
+                $items[$i]['item_name'] = $row['item_name'];
+                $items[$i]['price'] = $row['price'];
                 $items[$i]['selected'] = $row['is_checked'];
 
                 $i++;
@@ -66,16 +66,16 @@ if(!empty($action)){
             break;
         case 'additem':
             if(!empty($request)){
-            	//print_r($request);die;
             	mysql_query('TRUNCATE TABLE items');
 
                $sql = 'Insert into items (item_name,price,is_checked,date) values ';
                $current_date = date('Y-m-d');
                $data = '';
+               //print_r($request);die;
                 foreach($request as $r){
                     
-                    $name = isset($r->fname)?$r->fname:'';
-                    $amount = isset($r->lname)?$r->lname:'';
+                    $name = isset($r->item_name)?$r->item_name:'';
+                    $amount = isset($r->price)?$r->price:'';
                     $selected = isset($r->selected)?$r->selected:'';
 
                     if(!empty($name) && !empty($amount)){
@@ -86,7 +86,7 @@ if(!empty($action)){
             if(!empty($data)){
                 $data = rtrim($data, ',');
                   $sql .= $data;
-                  //echo $sql;die;
+                 // echo $sql;die;
                   mysql_query($sql);
                   $response['status'] = 1;
                 $response['message'] = 'Item added to menu';
