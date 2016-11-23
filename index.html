@@ -20,22 +20,18 @@
                <img height="28px" src="img/logo.jpeg"/>
                </a>
             </div>
-            App title goes here
-            <div class="pull-right app-menu">
+            Canteen App
+            <div class="pull-right app-menu" ng-controller="appmenu">
                <div class="btn-group" dropdown is-open="status.isopen">
                   <a  class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
                   <img src="img/menu_icon_dark.png"/>
                   </a>
                   <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="#/login">Login</a>
+                    <li ng-repeat="m in dropdown_menu">
+                        <a ng-if="m.click == '0' " href="#/{{m.href}}">{{m.label}}</a>
+                         <a href="javascript:;" ng-if="m.click == '1' " ng-click="logOut()">{{m.label}}</a>
                      </li>
-                     <li>
-                        <a href="#/menu">Menu</a>
-                     </li>
-                     <li>
-                        <a href="#/additem">Add Item</a>
-                     </li>
+                    
                   </ul>
                 </div>
             </div>

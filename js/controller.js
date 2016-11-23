@@ -1,8 +1,8 @@
 angular.module('constants', []).constant(
         'config',
             {
-                site_url:'http://172.16.7.112/canteen/',
-                service_url:'http://172.16.7.112/canteen/canteen/service.php'
+                site_url:'http://172.16.2.115/canteen/',
+                service_url:'http://172.16.2.115/canteen/canteen/service.php'
             }
         );
     
@@ -22,7 +22,7 @@ app.config(function ($routeProvider) {
         .when('/menu', {
                 templateUrl:  'template/menu.html',
                 controller: 'menu'
-            })
+            })        
         .when('/additem', {
                 templateUrl:  'template/addmenu.html',
                 controller: 'additem'
@@ -52,19 +52,6 @@ app.config(function ($routeProvider) {
             return deferred.promise;
         };
         
-        this.getMenu = function($cookies){
-            var dropdown_menu = [];
-            dropdown_menu.push({'menu':{'href':'menu','label':'Menu'}});
-            if($cookies.get('user_data')){
-                dropdown_menu.push({'menu':{'href':'logout','label':'Logout'}});
-                
-            }else{
-                dropdown_menu.push({'menu':{'href':'login','label':'Login'}});           
-            }
-            console.log(dropdown_menu);
-          
-            return dropdown_menu;
-        };
         
     });
 
@@ -107,12 +94,13 @@ app.controller('login', function($scope, config,$cookies,$cookieStore,$location,
         };
 });
 
-app.controller("additem", function ($scope, config,$cookies,$location,commonService) {
+app.controller("additem", function ($scope,$rootScope, config,$cookies,$location,commonService) {
       //$scope.item_data = {};
+       getAppMenu($rootScope,$cookies);
       if(!$cookies.get('user_data')){
         $location.path('/');
       }      
-      $scope.dropdown_menu =  commonService.getMenu($cookies);
+     // $scope.dropdown_menu =  commonService.getMenu($cookies);
 
         $scope.insertData = function() { 
             //console.log($scope.personalDetails);
@@ -179,8 +167,9 @@ app.controller("additem", function ($scope, config,$cookies,$location,commonServ
         };
 });
 
-app.controller("menu", function ($scope, config,$cookies,$location,commonService) {             
-        
+app.controller("menu", function ($scope,$rootScope, config,$cookies,$location,commonService) {             
+          //$scope.dropdown_menu =  commonService.getMenu($cookies);
+           getAppMenu($rootScope,$cookies);
          var request_header = {
                 url: config.service_url + '?action=getitems',
                 method: 'POST',
@@ -196,4 +185,23 @@ app.controller("menu", function ($scope, config,$cookies,$location,commonService
                 //console.log($scope.data);
             });        
                
+});
+getAppMenu = function($rootScope,$cookies){
+    $rootScope.dropdown_menu = [];
+            $rootScope.dropdown_menu.push({'click':'0','href':'menu','label':'Menu'});
+            if($cookies.get('user_data')){
+                $rootScope.dropdown_menu.push({'click':'1','href':'logout','label':'Logout'});
+                
+            }else{
+                $rootScope.dropdown_menu.push({'click':'0','href':'login','label':'Login'});           
+            }
+};
+app.controller("appmenu", function ($scope,$rootScope,$cookies,$location){
+           
+            getAppMenu($rootScope,$cookies);
+            $rootScope.logOut = function(){        
+                $cookies.remove('user_data');
+                $location.url('/'); 
+             };
+           // console.log($scope.dropdown_menu);
 });
