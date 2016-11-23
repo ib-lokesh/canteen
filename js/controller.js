@@ -1,8 +1,8 @@
 angular.module('constants', []).constant(
         'config',
             {
-                site_url:'http://172.16.2.115/canteen/',
-                service_url:'http://172.16.2.115/canteen/canteen/service.php'
+                site_url:'http://172.16.7.112/canteen/',
+                service_url:'http://172.16.7.112/canteen/canteen/service.php'
             }
         );
     
@@ -180,7 +180,12 @@ app.controller("menu", function ($scope,$rootScope, config,$cookies,$location,co
             };
             commonService.getData(request_header).then(function(response) {                
                 if(response.status == 1){
-                    $scope.items = response['items'];
+                    //console.log(response['items']);
+                    if (response['items'][0] != null) {
+                        $scope.items = response['items'];
+                    }else{
+                        $scope.msg = 'No Items Added Yet.'
+                    }
                 }else{
                     $scope.is_authenticate  = response.message;
                 }
@@ -193,7 +198,7 @@ getAppMenu = function($rootScope,$cookies){
     $rootScope.dropdown_menu = [];
             $rootScope.dropdown_menu.push({'click':'0','href':'menu','label':'Menu'});
             if($cookies.get('user_data')){
-                $rootScope.dropdown_menu.push({'click':'1','href':'logout','label':'Logout'});
+                $rootScope.dropdown_menu.push({'click':'0','href':'additem','label':'Add Item'},{'click':'1','href':'logout','label':'Logout'});
                 
             }else{
                 $rootScope.dropdown_menu.push({'click':'0','href':'login','label':'Login'});           

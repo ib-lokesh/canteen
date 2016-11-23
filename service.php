@@ -65,8 +65,8 @@ if(!empty($action)){
             $response['items'] = $items;
             break;
         case 'additem':
+            mysql_query('TRUNCATE TABLE items');
             if(!empty($request)){
-            	mysql_query('TRUNCATE TABLE items');
 
                $sql = 'Insert into items (item_name,price,is_checked,date) values ';
                $current_date = date('Y-m-d');
