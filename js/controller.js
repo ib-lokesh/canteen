@@ -96,6 +96,7 @@ app.controller('login', function($scope, config,$cookies,$cookieStore,$location,
 
 app.controller("additem", function ($scope,$rootScope, config,$cookies,$location,commonService) {
       //$scope.item_data = {};
+      $rootScope.addItemMsg = '';
        getAppMenu($rootScope,$cookies);
       if(!$cookies.get('user_data')){
         $location.path('/');
@@ -110,9 +111,8 @@ app.controller("additem", function ($scope,$rootScope, config,$cookies,$location
                 data:$scope.personalDetails
             };
             commonService.getData(request_header).then(function(response) {
-                
                 if(response.status == 1){
-                
+                    $rootScope.addItemMsg = 'Items Updated SuccessFully.';
                 }else{
                     $scope.is_authenticate  = response.message;
                 }
@@ -198,7 +198,7 @@ getAppMenu = function($rootScope,$cookies){
     $rootScope.dropdown_menu = [];
             $rootScope.dropdown_menu.push({'click':'0','href':'menu','label':'Menu'});
             if($cookies.get('user_data')){
-                $rootScope.dropdown_menu.push({'click':'0','href':'additem','label':'Add Item'},{'click':'1','href':'logout','label':'Logout'});
+                $rootScope.dropdown_menu.push({'click':'0','href':'additem','label':'Add Items'},{'click':'1','href':'logout','label':'Logout'});
                 
             }else{
                 $rootScope.dropdown_menu.push({'click':'0','href':'login','label':'Login'});           
