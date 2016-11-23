@@ -1,66 +1,14 @@
-<!-- <div class="intro-message">
-     <form name="itemForm" role="form" ng-submit="additem()" novalidate>
-        <fieldset>
-
-            <legend>Add Item</legend>
-            
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="name">Item Name</label>  
-              <div class="col-md-5">
-              <input ng-model="item_data[0].item['name']" id="name" name="name[]" type="text" placeholder="Item name" class="form-control input-md" required="">
-                
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="amount">Amount</label>  
-              <div class="col-md-5">
-              <input ng-model="item_data[0].item['amount']" id="amount" name="amount[]" type="text" placeholder="Amount" class="form-control input-md" required="">
-                
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="name">Item Name</label>  
-              <div class="col-md-5">
-              <input ng-model="item_data[1].item['name']" id="name" name="name[]" type="text" placeholder="Item name" class="form-control input-md" required="">
-                
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="amount">Amount</label>  
-              <div class="col-md-5">
-              <input ng-model="item_data[1].item['amount']" id="amount" name="amount[]" type="text" placeholder="Amount" class="form-control input-md" required="">
-                
-              </div>
-            </div>
-            
-            
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="button"></label>
-              <div class="col-md-4">
-                <a ng-click="additem()" class="btn btn-primary btn-lg">Add Item <i class="fa fa-sign-in"></i></a>
-              </div>
-            </div>
-            </fieldset>
-     </form>
-</div> -->
-
-
-
-
-
-    <div class="intro-message">
-        <h3>Add Item</h3>
+<div class="intro-message">
+        <h3>Add Items</h3>
         <div class="list-group">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <form ng-submit="addNew()">
+                            <p style="color:green;">{{addItemMsg}}</p>
                             <table class="table table-striped table-bordered">
                                 <thead>
-                                    <tr>
+                                   <tr>
                                         <th></th>
                                         <th style="color:black;text-align:center;">Item Name</th>
                                         <th style="color:black;text-align:center;">Price</th>
@@ -79,7 +27,6 @@
                                 </tbody>
                             </table>
                             <div class="form-group">
-                             
                                 <input type="submit" class="btn btn-primary addnew pull-center" value="Add New">
                                 <input type="button" class="btn btn-primary addnew pull-center" value="Submit" ng-click="insertData()" />
                                    <!-- <input ng-hide="!personalDetails.length" type="button" class="btn btn-danger pull-center" ng-click="remove()" value="Remove"> -->
@@ -90,6 +37,3 @@
             </div>
         </div>
     </div>
-
-
-
