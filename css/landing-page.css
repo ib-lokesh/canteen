@@ -178,10 +178,16 @@ p.copyright {
 .navbar-default .navbar-nav>li>a{
     color: #fff;
 }
+.menu-item {
+    max-height: 400px;
+    overflow-y: auto;
+}
 .menu-item li {
     color: #000;
     text-align: left;
     font-weight: bold;
+    
+    
 }
 .app-header{
     padding: 15px;
