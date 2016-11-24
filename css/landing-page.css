@@ -178,7 +178,7 @@ p.copyright {
 .navbar-default .navbar-nav>li>a{
     color: #fff;
 }
-.menu-item {
+.fix-height {
     max-height: 400px;
     overflow-y: auto;
 }
